@@ -10,16 +10,16 @@ x <- pdf_ocr_text(pdf = "karate.pdf")
 y <- unlist(stringr::str_split(string = x, pattern = "\n"))
 y <- y[c(18:60, 62:141, 144:160, 162:224)]
 
-english <- str_split(string = y, "(?=[[:upper:]])") |>
+japanese <- str_split(string = y, "(?=[[:upper:]])") |>
   lapply(FUN = function(x) head(x, 2)) |> 
   lapply(FUN = function(x) paste0(x, collapse = "")) |>
   unlist()
 
-japanese <- str_split(string = y, "(?=[[:upper:]])") |>
+english <- str_split(string = y, "(?=[[:upper:]])") |>
   lapply(FUN = function(x) tail(x, 1)) |> 
   unlist()
 
-z <- data.frame(english, japanese)
+z <- data.frame(japanese, english)
 
 ## Output file
 write.csv(z, "karate-terminology.csv", row.names = FALSE)
